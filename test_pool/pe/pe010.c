@@ -90,7 +90,7 @@ payload()
       val_set_status(index, RESULT_SKIP(TEST_NUM, 1));
       return;
   }
-
+  val_print(ACS_PRINT_ERR, "\n       Here", 0);
   int_id = val_pe_get_pmu_gsiv(index);
   if (int_id == 0) {
       /* PMU interrupt number not updated */
@@ -103,14 +103,14 @@ payload()
       val_set_status(index, RESULT_FAIL(TEST_NUM, 1));
       return;
   }
-
+  val_print(ACS_PRINT_ERR, "\n       tHere", 0);
   val_pe_install_esr(EXCEPT_AARCH64_SYNCHRONOUS_EXCEPTIONS, esr);
   val_pe_install_esr(EXCEPT_AARCH64_SERROR, esr);
-
+  val_print(ACS_PRINT_ERR, "\n       wHere", 0);
   branch_to_test = &&exception_taken;
 
   set_pmu_overflow();
-
+  val_print(ACS_PRINT_ERR, "\n      nowHere", 0);
   while ((--timeout > 0) && \
          (IS_RESULT_PENDING(val_get_status(index))));
 
